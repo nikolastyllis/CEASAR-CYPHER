@@ -1,0 +1,27 @@
+#!/bin/bash
+
+parameters=( $@ )
+
+for p1 in "${parameters[@]}"
+do
+    arguments="$arguments $p1"
+done
+
+translation=$(./create_pattern $arguments)
+
+lines=()
+
+while IFS= read -r line; do
+    lines+=( "$line" )
+done
+
+for l in "${lines[@]}"
+do
+    echo $l | tr [A-Z] $translation
+done
+
+
+
+
+
+
