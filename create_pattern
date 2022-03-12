@@ -1,0 +1,40 @@
+#!/bin/bash
+
+alphabet=( a b c d e f g h i j k l m n o p q r s t u v w x y z )
+alphabetUppercase=( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z )
+
+upperCase=0
+scale=0
+
+parameters=( $@ )
+
+for p1 in "${parameters[@]}"
+do
+    if [[ $1 == "-u" ]]
+    then
+        upperCase=1
+    fi
+
+    if [[ $1 == "-n" ]]
+    then
+        shift
+        scale=$1
+    fi
+    shift
+done
+
+scale=$((scale%26))
+
+
+if [ $upperCase -eq 1 ]
+then
+    start="${alphabetUppercase[scale]}"
+    end="${alphabetUppercase[$((scale-1))]}"
+    tr="[$start-ZA-$end]"
+else
+    start="${alphabet[scale]}"
+    end="${alphabet[$((scale-1))]}"
+    tr="[$start-za-$end]"
+fi
+
+echo $tr
