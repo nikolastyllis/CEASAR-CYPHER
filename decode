@@ -1,0 +1,22 @@
+#!/bin/bash
+
+filename=$1
+
+lines=()
+
+while IFS= read -r line; do
+   lines+=("$line")
+done <$filename
+
+for ((i=1;i<=25;i++));
+do
+    echo Shift $i
+
+    translation=$(./create_pattern -u -n $i)
+
+    for l in "${lines[@]}"
+    do
+        echo $l | tr [A-Z] $translation
+    done
+done
+
